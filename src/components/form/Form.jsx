@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormField } from "./FormField";
 
 const inputData = [
@@ -31,11 +31,28 @@ const formFieldsData = {
 
 export const Form = ({ setPagePrices, pagePrices }) => {
 	const [form, setForm] = useState(formFieldsData);
+	const updatedPagePrices = [...pagePrices];
+	const lastArray = pagePrices.length - 1;
+	const lastArrayIndex = pagePrices[lastArray];
+	const updatedPricesLastArray = pagePrices[lastArray];
 
 	const onPriceCreate = (e) => {
-		//TODO: VALIDACIONES ACA
 		e.preventDefault();
-		setPagePrices([...pagePrices, form]);
+		if (lastArray === -1) {
+			setPagePrices([...pagePrices, [...pagePrices, form]]);
+		} else if (lastArrayIndex.length < 6) {
+			updatedPricesLastArray.push(form);
+
+			setPagePrices(updatedPagePrices);
+		} else {
+			const newArray = [];
+
+			newArray.push(form);
+
+			setPagePrices([...pagePrices, newArray]);
+		}
+
+		//TODO: VALIDACIONES ACA
 	};
 
 	const handleDataDelete = () => {

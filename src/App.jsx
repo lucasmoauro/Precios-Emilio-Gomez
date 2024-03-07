@@ -9,8 +9,12 @@ function App() {
 			<div className="flex-1 h-full flex flex-col justify-center items-center bg-gray-300/30">
 				<Form setPagePrices={setPagePrices} pagePrices={pagePrices} />
 			</div>
-			{/* A4 */}
-			<PagePreview setPagePrices={setPagePrices} pagePrices={pagePrices} />
+
+			<div className="bg-[#353535] flex-1 h-full overflow-y-scroll flex flex-col">
+				{pagePrices.map((page, i) => (
+					<PagePreview setPagePrices={setPagePrices} page={page} key={i} />
+				))}
+			</div>
 		</div>
 	);
 }
