@@ -1,6 +1,6 @@
 export const PagePrice = ({ title, subtitle, currency, price }) => {
 	return (
-		<div className="border-2 border-black w-2/5 h-1/6">
+		<div className="border-2 border-black w-2/5 min-h-[7rem] max-h-[7rem] hover:scale-105 cursor-pointer transition duration-200">
 			<div className="h-2/6 text-center">
 				<span className="text-xl uppercase font-bold">{title}</span>
 			</div>

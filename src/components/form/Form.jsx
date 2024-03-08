@@ -40,7 +40,7 @@ export const Form = ({ setPagePrices, pagePrices }) => {
 		e.preventDefault();
 		if (lastArray === -1) {
 			setPagePrices([...pagePrices, [...pagePrices, form]]);
-		} else if (lastArrayIndex.length < 6) {
+		} else if (lastArrayIndex.length < 12) {
 			updatedPricesLastArray.push(form);
 
 			setPagePrices(updatedPagePrices);
