@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormField } from "./FormField";
 
 const inputData = [
@@ -25,7 +25,7 @@ const inputData = [
 const formFieldsData = {
 	title: "",
 	subtitle: "",
-	currency: "",
+	currency: "U$S",
 	price: "",
 };
 
@@ -36,20 +36,23 @@ export const Form = ({ setPagePrices, pagePrices }) => {
 	const lastArrayIndex = pagePrices[lastArray];
 	const updatedPricesLastArray = pagePrices[lastArray];
 
-	const onPriceCreate = (e) => {
+	const handlePriceCreate = (e) => {
 		e.preventDefault();
 		if (lastArray === -1) {
 			setPagePrices([...pagePrices, [...pagePrices, form]]);
+			setForm(formFieldsData);
 		} else if (lastArrayIndex.length < 12) {
 			updatedPricesLastArray.push(form);
 
 			setPagePrices(updatedPagePrices);
+			setForm(formFieldsData);
 		} else {
 			const newArray = [];
 
 			newArray.push(form);
 
 			setPagePrices([...pagePrices, newArray]);
+			setForm(formFieldsData);
 		}
 
 		//TODO: VALIDACIONES ACA
@@ -63,7 +66,7 @@ export const Form = ({ setPagePrices, pagePrices }) => {
 		<div className="w-2/3 h-2/3 rounded-md shadow-md bg-white">
 			<form
 				className="h-full flex flex-col justify-evenly"
-				onSubmit={(e) => onPriceCreate(e)}
+				onSubmit={(e) => handlePriceCreate(e)}
 			>
 				{inputData.map((data) => (
 					<FormField {...data} key={data.title} setForm={setForm} form={form} />

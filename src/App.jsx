@@ -34,7 +34,7 @@ function App() {
 
 			<div
 				ref={ref}
-				className="w-full p-2 mt-6 gap-6 flex flex-wrap justify-center absolute -z-50"
+				className="w-full pt-1 gap-5 flex flex-wrap justify-center absolute -z-50"
 			>
 				{pagePrices.map((pageData, i) => (
 					<PrintablePage key={i} pageData={pageData} />
