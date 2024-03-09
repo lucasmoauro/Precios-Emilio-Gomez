@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { FormField } from "./FormField";
+import { useDispatch, useSelector } from "react-redux";
+import { formInitialState } from "../../store/slices/formSlice";
 
 const inputData = [
 	{
 		title: "titulo",
+		type: "text",
 		field: "title",
 	},
 	{
 		title: "subtitulo",
+		type: "text",
 		field: "subtitle",
 	},
 	{
@@ -22,44 +25,39 @@ const inputData = [
 	},
 ];
 
-const formFieldsData = {
-	title: "",
-	subtitle: "",
-	currency: "U$S",
-	price: "",
-};
-
 export const Form = ({ setPagePrices, pagePrices }) => {
-	const [form, setForm] = useState(formFieldsData);
 	const updatedPagePrices = [...pagePrices];
 	const lastArray = pagePrices.length - 1;
 	const lastArrayIndex = pagePrices[lastArray];
 	const updatedPricesLastArray = pagePrices[lastArray];
+	const dispatch = useDispatch();
+	const form = useSelector((state) => state.form);
 
 	const handlePriceCreate = (e) => {
 		e.preventDefault();
 		if (lastArray === -1) {
 			setPagePrices([...pagePrices, [...pagePrices, form]]);
-			setForm(formFieldsData);
+			dispatch(formInitialState());
+
 		} else if (lastArrayIndex.length < 12) {
 			updatedPricesLastArray.push(form);
-
+			
 			setPagePrices(updatedPagePrices);
-			setForm(formFieldsData);
+			dispatch(formInitialState());
 		} else {
 			const newArray = [];
 
 			newArray.push(form);
 
 			setPagePrices([...pagePrices, newArray]);
-			setForm(formFieldsData);
+			dispatch(formInitialState());
 		}
 
 		//TODO: VALIDACIONES ACA
 	};
 
 	const handleDataDelete = () => {
-		setForm(formFieldsData);
+		dispatch(formInitialState());
 	};
 
 	return (
@@ -69,7 +67,7 @@ export const Form = ({ setPagePrices, pagePrices }) => {
 				onSubmit={(e) => handlePriceCreate(e)}
 			>
 				{inputData.map((data) => (
-					<FormField {...data} key={data.title} setForm={setForm} form={form} />
+					<FormField {...data} key={data.title} form={form} />
 				))}
 
 				<div className="items-center flex justify-evenly mt-2">

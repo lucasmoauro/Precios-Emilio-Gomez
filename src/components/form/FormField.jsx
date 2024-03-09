@@ -1,4 +1,17 @@
-export const FormField = ({ title, type, field, setForm, form }) => {
+import { useDispatch } from "react-redux";
+import { formFieldInput } from "../../store/slices/formSlice";
+
+export const FormField = ({ title, type, field, form }) => {
+	const dispatch = useDispatch();
+
+	const handleFieldChange = (e, currency) => {
+		if (!currency) {
+			dispatch(formFieldInput({ [e.target.name]: e.target.value }));
+		} else {
+			dispatch(formFieldInput({ [e.target.name]: currency }));
+		}
+	};
+
 	if (field !== "currency") {
 		return (
 			<div className="flex justify-center">
@@ -7,16 +20,14 @@ export const FormField = ({ title, type, field, setForm, form }) => {
 						{title}
 					</label>
 					<input
-						type={type || "text"}
+						type={type}
 						name={field}
 						min={0}
 						max={99999}
 						id={title}
 						value={form[field]}
 						className="text-xl pl-2 py-2 rounded shadow-md border focus:outline"
-						onChange={(e) =>
-							setForm({ ...form, [e.target.name]: e.target.value })
-						}
+						onChange={(e) => handleFieldChange(e)}
 					/>
 				</div>
 			</div>
@@ -41,7 +52,7 @@ export const FormField = ({ title, type, field, setForm, form }) => {
 								id="dolar"
 								className="hidden"
 								name="currency"
-								onChange={(e) => setForm({ ...form, [e.target.name]: "U$S" })}
+								onChange={(e) => handleFieldChange(e, "U$S")}
 							/>
 						</label>
 						<label
@@ -58,7 +69,7 @@ export const FormField = ({ title, type, field, setForm, form }) => {
 								id="pesos"
 								className="hidden"
 								name="currency"
-								onChange={(e) => setForm({ ...form, [e.target.name]: "$" })}
+								onChange={(e) => handleFieldChange(e, "$")}
 							/>
 						</label>
 					</div>

@@ -1,5 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit'
-
+import { configureStore } from "@reduxjs/toolkit";
+import formReducer from "./slices/formSlice";
 export default configureStore({
-  reducer: {},
-})
+	reducer: {
+		form: formReducer,
+	},
+});
