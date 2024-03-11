@@ -1,20 +1,23 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { PagePreview, Form, PrintablePage } from "./components";
 import { FaPrint } from "react-icons/fa";
 import ReactToPrint from "react-to-print";
 function App() {
-	const [pagePrices, setPagePrices] = useState([]);
 	const ref = useRef();
+
+	const pagePrices = useSelector((state) => state.pagePrices);
+
 	return (
 		<div className="flex h-screen relative overflow-hidden">
 			{/* form */}
 			<div className="flex-1 h-full flex flex-col justify-center items-center bg-[#e4e4e4] z-30">
-				<Form setPagePrices={setPagePrices} pagePrices={pagePrices} />
+				<Form pagePrices={pagePrices} />
 			</div>
 
 			<div className="bg-[#353535] flex-1 h-full overflow-y-scroll flex flex-col">
 				{pagePrices.map((page, i) => (
-					<PagePreview setPagePrices={setPagePrices} page={page} key={i} />
+					<PagePreview page={page} key={i} pageIndex={i} />
 				))}
 
 				{!(pagePrices.length - 1 === -1) && (

@@ -1,59 +1,43 @@
 import { FormField } from "./FormField";
 import { useDispatch, useSelector } from "react-redux";
 import { formInitialState } from "../../store/slices/formSlice";
+import {
+	firstPagePrice,
+	newPagePrice,
+	newPrice,
+	priceEdit,
+} from "../../store/slices/pagePricesSlice";
+import { inputData } from "./inputData";
 
-const inputData = [
-	{
-		title: "titulo",
-		type: "text",
-		field: "title",
-	},
-	{
-		title: "subtitulo",
-		type: "text",
-		field: "subtitle",
-	},
-	{
-		title: "moneda",
-		type: "checkbox",
-		field: "currency",
-	},
-	{
-		title: "precio",
-		type: "number",
-		field: "price",
-	},
-];
-
-export const Form = ({ setPagePrices, pagePrices }) => {
-	const updatedPagePrices = [...pagePrices];
-	const lastArray = pagePrices.length - 1;
-	const lastArrayIndex = pagePrices[lastArray];
-	const updatedPricesLastArray = pagePrices[lastArray];
+export const Form = () => {
 	const dispatch = useDispatch();
 	const form = useSelector((state) => state.form);
+	const pagePrices = useSelector((state) => state.pagePrices);
+
+	const lastArray = pagePrices.length - 1;
+	const lastArrayIndex = pagePrices[lastArray];
 
 	const handlePriceCreate = (e) => {
 		e.preventDefault();
-		if (lastArray === -1) {
-			setPagePrices([...pagePrices, [...pagePrices, form]]);
-			dispatch(formInitialState());
+		const { title, subtitle, price, isEditing } = form;
 
-		} else if (lastArrayIndex.length < 12) {
-			updatedPricesLastArray.push(form);
-			
-			setPagePrices(updatedPagePrices);
-			dispatch(formInitialState());
-		} else {
-			const newArray = [];
-
-			newArray.push(form);
-
-			setPagePrices([...pagePrices, newArray]);
-			dispatch(formInitialState());
+		if (!title || !subtitle || !price) {
+			//TODO: AGREGAR ALERTA ACA
+			return;
 		}
-
 		//TODO: VALIDACIONES ACA
+		if (isEditing) {
+			dispatch(priceEdit(form));
+		} else if (lastArray === -1) {
+			dispatch(newPrice(form));
+		} else if (lastArrayIndex.length < 12) {
+			dispatch(firstPagePrice(form));
+
+		} else {
+			dispatch(newPagePrice(form));
+
+		}
+		dispatch(formInitialState());
 	};
 
 	const handleDataDelete = () => {
@@ -82,7 +66,7 @@ export const Form = ({ setPagePrices, pagePrices }) => {
 						className="bg-green-600 text-white rounded text-2xl px-5 py-1 hover:bg-green-700 transition-all duration-300"
 						type="submit"
 					>
-						Crear
+						{form.isEditing ? "Editar" : "Crear"}
 					</button>
 				</div>
 			</form>

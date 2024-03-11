@@ -5,6 +5,8 @@ const formFieldsData = {
 	subtitle: "",
 	currency: "U$S",
 	price: "",
+	isEditing: false,
+	priceIndex: [],
 };
 
 export const formSlice = createSlice({
@@ -25,9 +27,27 @@ export const formSlice = createSlice({
 				[formInputField]: formInputValue,
 			};
 		},
+		formEdit(state, action) {
+			const { title, subtitle, currency, price, pageIndex, index } =
+				action.payload;
+
+			if (state.priceIndex.length) {
+				formInitialState()
+			}
+			const newPriceIndex = [pageIndex, index];
+			return {
+				...state,
+				title,
+				subtitle,
+				currency,
+				price,
+				isEditing: true,
+				priceIndex: newPriceIndex,
+			};
+		},
 	},
 });
 
-export const { formInitialState, formFieldInput } = formSlice.actions;
+export const { formInitialState, formFieldInput, formEdit } = formSlice.actions;
 
 export default formSlice.reducer;
