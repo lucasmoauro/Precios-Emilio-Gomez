@@ -9,12 +9,13 @@ import {
 } from "../../store/slices/pagePricesSlice";
 import { inputData } from "./inputData";
 import { alert } from "../Toast/Alert";
+import { useState } from "react";
 
 export const Form = () => {
 	const dispatch = useDispatch();
 	const form = useSelector((state) => state.form);
 	const pagePrices = useSelector((state) => state.pagePrices);
-
+	const [isFocused, setIsFocused] = useState(true);
 	const lastArray = pagePrices.length - 1;
 	const lastArrayIndex = pagePrices[lastArray];
 
@@ -32,12 +33,13 @@ export const Form = () => {
 			dispatch(priceEdit(form));
 		} else if (lastArray === -1) {
 			dispatch(newPrice(form));
-		} else if (lastArrayIndex.length < 12) {
+		} else if (lastArrayIndex.length < 10) {
 			dispatch(firstPagePrice(form));
 		} else {
 			dispatch(newPagePrice(form));
 		}
 		dispatch(formInitialState());
+		setIsFocused(true);
 	};
 
 	const handleDataDelete = () => {
@@ -51,7 +53,13 @@ export const Form = () => {
 				onSubmit={(e) => handlePriceCreate(e)}
 			>
 				{inputData.map((data) => (
-					<FormField {...data} key={data.title} form={form} />
+					<FormField
+						{...data}
+						key={data.title}
+						form={form}
+						isFocused={isFocused}
+						setIsFocused={setIsFocused}
+					/>
 				))}
 
 				<div className="items-center flex justify-evenly mt-2">

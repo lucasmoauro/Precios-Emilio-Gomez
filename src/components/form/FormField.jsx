@@ -1,12 +1,21 @@
 import { useDispatch } from "react-redux";
 import { formFieldInput } from "../../store/slices/formSlice";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-export const FormField = ({ title, type, field, form }) => {
+export const FormField = ({
+	title,
+	type,
+	field,
+	form,
+	isFocused,
+	setIsFocused,
+}) => {
 	const dispatch = useDispatch();
 	const [letters, setLetters] = useState(0);
+	const inputRef = useRef();
 
 	const handleFieldChange = (e, currency) => {
+		setIsFocused(false);
 		if (!currency && e.target.value.length > 15) {
 			return;
 		}
@@ -26,6 +35,11 @@ export const FormField = ({ title, type, field, form }) => {
 						{title}
 					</label>
 					<input
+						ref={inputRef}
+						autoFocus={
+							(field === "title" && isFocused && inputRef.current?.focus()) ||
+							field === "title"
+						}
 						type={type}
 						name={field}
 						min={0}
