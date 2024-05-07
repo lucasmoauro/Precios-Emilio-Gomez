@@ -8,6 +8,7 @@ import {
 	priceEdit,
 } from "../../store/slices/pagePricesSlice";
 import { inputData } from "./inputData";
+import { alert } from "../Toast/Alert";
 
 export const Form = () => {
 	const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export const Form = () => {
 
 		if (!title || !subtitle || !price) {
 			//TODO: AGREGAR ALERTA ACA
+			alert("No puede haber campos vacios", "error");
 			return;
 		}
 		//TODO: VALIDACIONES ACA
@@ -32,10 +34,8 @@ export const Form = () => {
 			dispatch(newPrice(form));
 		} else if (lastArrayIndex.length < 12) {
 			dispatch(firstPagePrice(form));
-
 		} else {
 			dispatch(newPagePrice(form));
-
 		}
 		dispatch(formInitialState());
 	};

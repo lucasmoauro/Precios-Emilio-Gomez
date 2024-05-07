@@ -1,14 +1,20 @@
 import { useDispatch } from "react-redux";
 import { formFieldInput } from "../../store/slices/formSlice";
+import { useState } from "react";
 
 export const FormField = ({ title, type, field, form }) => {
 	const dispatch = useDispatch();
+	const [letters, setLetters] = useState(0);
 
 	const handleFieldChange = (e, currency) => {
+		if (!currency && e.target.value.length > 15) {
+			return;
+		}
 		if (!currency) {
 			dispatch(formFieldInput({ [e.target.name]: e.target.value }));
+			setLetters(e.target.value.length);
 		} else {
-			dispatch(formFieldInput({ [e.target.name]: currency }));
+			dispatch(formFieldInput({ currency: currency }));
 		}
 	};
 
@@ -29,6 +35,7 @@ export const FormField = ({ title, type, field, form }) => {
 						className="text-xl pl-2 py-2 rounded shadow-md border focus:outline"
 						onChange={(e) => handleFieldChange(e)}
 					/>
+					<span className="text-sm flex self-end">{letters}/15</span>
 				</div>
 			</div>
 		);
@@ -38,40 +45,29 @@ export const FormField = ({ title, type, field, form }) => {
 				<div className="flex flex-1 flex-col items-center justify-center w-3/4">
 					<span className="capitalize text-xl w-3/4">{title}</span>
 					<div className="justify-evenly w-1/2 flex">
-						<label
-							htmlFor="dolar"
+						<span
+							id="U$S"
 							className={`text-xl ${
 								form.currency === "U$S"
 									? "bg-blue-500 text-white"
 									: "border-blue-500 border-2"
 							} py-2 px-6 rounded cursor-pointer shadow-md transition-[background] duration-100`}
+							onClick={(e) => handleFieldChange(e, "U$S")}
 						>
 							U$S
-							<input
-								type="radio"
-								id="dolar"
-								className="hidden"
-								name="currency"
-								onChange={(e) => handleFieldChange(e, "U$S")}
-							/>
-						</label>
-						<label
-							htmlFor="pesos"
+						</span>
+
+						<span
 							className={`text-xl ${
 								form.currency === "$"
 									? "bg-blue-500 text-white"
 									: "border-blue-500 border-2 "
 							} py-2 px-8 rounded cursor-pointer shadow-md transition-[background] duration-100`}
+							onClick={(e) => handleFieldChange(e, "$")}
+							id="$"
 						>
 							$
-							<input
-								type="radio"
-								id="pesos"
-								className="hidden"
-								name="currency"
-								onChange={(e) => handleFieldChange(e, "$")}
-							/>
-						</label>
+						</span>
 					</div>
 				</div>
 			</div>
