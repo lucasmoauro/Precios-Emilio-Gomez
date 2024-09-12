@@ -16,7 +16,7 @@ export const FormField = ({
 
 	const handleFieldChange = (e, currency) => {
 		setIsFocused(false);
-		if (!currency && e.target.value.length > 15) {
+		if (!currency && e.target.value.length > 18) {
 			return;
 		}
 		if (!currency) {
@@ -49,7 +49,7 @@ export const FormField = ({
 						className="text-xl pl-2 py-2 rounded shadow-md border focus:outline"
 						onChange={(e) => handleFieldChange(e)}
 					/>
-					<span className="text-sm flex self-end">{letters}/15</span>
+					<span className="text-sm flex self-end">{letters}/18</span>
 				</div>
 			</div>
 		);

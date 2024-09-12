@@ -11,6 +11,13 @@ import { inputData } from "./inputData";
 import { alert } from "../Toast/Alert";
 import { useState } from "react";
 
+
+{/*
+	//!modificar editar para que pueda ser usado en browser viejo
+	//!modificar cantidad de caracteres 2+
+	//!modificar espacio entre etiquetas para que pueda imprimir 2 o mas hojas
+	//!padding a los botones de abajo 
+	//!agregar funcion que permita agregar mas etiquetas (while o for)  */}
 export const Form = () => {
 	const dispatch = useDispatch();
 	const form = useSelector((state) => state.form);
@@ -24,11 +31,9 @@ export const Form = () => {
 		const { title, subtitle, price, isEditing } = form;
 
 		if (!title || !subtitle || !price) {
-			//TODO: AGREGAR ALERTA ACA
 			alert("No puede haber campos vacios", "error");
 			return;
 		}
-		//TODO: VALIDACIONES ACA
 		if (isEditing) {
 			dispatch(priceEdit(form));
 		} else if (lastArray === -1) {
@@ -61,6 +66,12 @@ export const Form = () => {
 						setIsFocused={setIsFocused}
 					/>
 				))}
+
+
+				{/* <div className=" bg-red-600 h-4 w-[100%]"> */}
+				{/* div de cantidad de etiquetas */}
+					{/* <div></div> */}
+				{/* </div> */}
 
 				<div className="items-center flex justify-evenly mt-2">
 					<button
