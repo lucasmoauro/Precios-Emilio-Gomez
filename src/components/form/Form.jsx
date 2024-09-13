@@ -13,10 +13,7 @@ import { useState } from "react";
 
 
 {/*
-	//!modificar editar para que pueda ser usado en browser viejo
-	//!modificar cantidad de caracteres 2+
 	//!modificar espacio entre etiquetas para que pueda imprimir 2 o mas hojas
-	//!padding a los botones de abajo 
 	//!agregar funcion que permita agregar mas etiquetas (while o for)  */}
 export const Form = () => {
 	const dispatch = useDispatch();
@@ -52,7 +49,7 @@ export const Form = () => {
 	};
 
 	return (
-		<div className="w-2/3 h-2/3 rounded-md shadow-md bg-white">
+		<div className="w-2/3 h-2/3 rounded-md shadow-md bg-white py-2">
 			<form
 				className="h-full flex flex-col justify-evenly"
 				onSubmit={(e) => handlePriceCreate(e)}
@@ -73,7 +70,7 @@ export const Form = () => {
 					{/* <div></div> */}
 				{/* </div> */}
 
-				<div className="items-center flex justify-evenly mt-2">
+				<div className="items-center flex justify-evenly mt-2 py-2">
 					<button
 						className="text-red-600 cursor-pointer text-2xl px-5 py-1 rounded hover:bg-red-600/70 hover:text-white transition-all duration-300"
 						onClick={handleDataDelete}

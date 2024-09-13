@@ -40,17 +40,7 @@ export const pagePricesSlice = createSlice({
 		priceEdit(state, action) {
 			const { priceIndex } = action.payload;
 
-			const newPagePrices = state[priceIndex[0]].toSpliced(
-				priceIndex[1],
-				1,
-				action.payload
-			);
-
-			return [
-				...state.slice(0, priceIndex[0]),
-				newPagePrices,
-				...state.slice(priceIndex[0] + 1),
-			];
+			state[priceIndex[0]].splice(priceIndex[1], 1, action.payload);
 		},
 
 		filterEmptyPage(state) {
