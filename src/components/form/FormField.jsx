@@ -32,7 +32,10 @@ export const FormField = ({
 			<div className="flex justify-center">
 				<div className="flex flex-col w-3/4">
 					<label htmlFor={title} className="text-2xl capitalize mb-1 pt-2">
-						{title} {field === "etiquetas" && <span className="text-sm lowercase">( entre 1 y 10 )</span>}
+						{title}{" "}
+						{field === "etiquetas" && (
+							<span className="text-sm lowercase">( entre 1 y 10 )</span>
+						)}
 					</label>
 					<input
 						ref={inputRef}
@@ -62,7 +65,7 @@ export const FormField = ({
 		return (
 			<div className="flex justify-center w-full ">
 				<div className="flex flex-1 flex-col items-center justify-center w-3/4">
-					<span className="capitalize text-xl w-3/4">{title}</span>
+					<span className="capitalize text-2xl w-3/4">{title}</span>
 					<div className="justify-evenly w-1/2 flex">
 						<span
 							id="U$S"

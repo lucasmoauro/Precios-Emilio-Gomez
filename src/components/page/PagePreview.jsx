@@ -13,13 +13,7 @@ export const PagePreview = ({ page, pageIndex }) => {
 		dispatch(priceDelete({ pageIndex, index }));
 	};
 
-	const handleEditPrice = ({
-		title,
-		subtitle,
-		currency,
-		price,
-		index,
-	}) => {
+	const handleEditPrice = ({ title, subtitle, currency, price, index }) => {
 		dispatch(
 			formEdit({
 				title,
