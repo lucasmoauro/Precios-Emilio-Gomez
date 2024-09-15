@@ -31,8 +31,8 @@ export const FormField = ({
 		return (
 			<div className="flex justify-center">
 				<div className="flex flex-col w-3/4">
-					<label htmlFor={title} className="text-2xl capitalize mb-1">
-						{title}
+					<label htmlFor={title} className="text-2xl capitalize mb-1 pt-2">
+						{title} {field === "etiquetas" && <span className="text-sm lowercase">( entre 1 y 10 )</span>}
 					</label>
 					<input
 						ref={inputRef}
@@ -42,14 +42,19 @@ export const FormField = ({
 						}
 						type={type}
 						name={field}
-						min={0}
-						max={99999}
+						min={field === "etiquetas" ? 1 : 0}
+						max={field === "etiquetas" ? 10 : 99999}
 						id={title}
 						value={form[field]}
 						className="text-xl pl-2 py-2 rounded shadow-md border focus:outline"
 						onChange={(e) => handleFieldChange(e)}
 					/>
-					<span className="text-sm flex self-end">{letters}/18</span>
+					{field === "title" && (
+						<span className="text-sm flex self-end">{letters}/18</span>
+					)}
+					{field === "subtitle" && (
+						<span className="text-sm flex self-end">{letters}/18</span>
+					)}
 				</div>
 			</div>
 		);

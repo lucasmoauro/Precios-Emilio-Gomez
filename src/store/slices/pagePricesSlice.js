@@ -10,20 +10,27 @@ export const pagePricesSlice = createSlice({
 			return pagePricesData;
 		},
 		newPrice(state, action) {
-			return [...state, [...state, action.payload]];
-		},
-		firstPagePrice(state, action) {
+			const { etiquetas, ...payload } = action.payload;
+			const numberOfTimes = Number(etiquetas);
 			const lastArray = state.length - 1;
-			const newState = state[lastArray];
-			newState.push(action.payload);
-		},
 
-		newPagePrice(state, action) {
-			const newArray = [];
+			const newArr = [];
 
-			newArray.push(action.payload);
+			const newState = lastArray >= 0 ? [...state[lastArray]] : [];
 
-			return [...state, newArray];
+			for (let i = 0; i < numberOfTimes; i++) {
+				if (newState.length && newState.length < 10) {
+					newState.push(payload);
+				} else {
+					newArr.push(payload);
+				}
+			}
+
+			return [
+				...state.slice(0, lastArray),
+				newState,
+				...(newArr.length ? [newArr] : []),
+			];
 		},
 		priceDelete(state, action) {
 			const { pageIndex, index } = action.payload;
@@ -56,8 +63,6 @@ export const pagePricesSlice = createSlice({
 export const {
 	pagePricesInitialState,
 	newPrice,
-	firstPagePrice,
-	newPagePrice,
 	priceDelete,
 	priceEdit,
 	filterEmptyPage,

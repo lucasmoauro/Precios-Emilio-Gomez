@@ -19,4 +19,9 @@ export const inputData = [
 		type: "number",
 		field: "price",
 	},
+	{
+		title: "Cantidad de etiquetas",
+		type: "number",
+		field: "etiquetas",
+	},
 ];

@@ -5,6 +5,7 @@ const formFieldsData = {
 	subtitle: "",
 	currency: "U$S",
 	price: "",
+	etiquetas: "1",
 	isEditing: false,
 	priceIndex: [],
 };
